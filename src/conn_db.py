@@ -11,14 +11,17 @@ logging.basicConfig(
     format="%(asctime)s -  %(levelname)s - %(message)s"
 )
 
-try:
-    connection = psycopg2.connect(
-        dbname='postgres', 
-        user='postgres', 
-        password='postgres',
-        host='localhost',
-        port=5430
-    )
-    logging.info("Connected!")
-except:
-    logging.error("Connection ERROR!")
+def db_connection():
+    try:
+        connection = psycopg2.connect(
+            dbname='postgres', 
+            user='postgres', 
+            password='postgres',
+            host='localhost',
+            port=5430
+        )
+        logging.info("Connected!")
+        return connection
+    except:
+        logging.error("Connection ERROR!")
+        return None
