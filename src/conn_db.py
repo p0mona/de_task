@@ -7,7 +7,7 @@ if not os.path.exists("logs"):
 
 logging.basicConfig(
   level=logging.INFO, 
-  filename='logs/load_data.log', 
+  filename='logs/conn_db.log', 
   format="%(asctime)s -  %(levelname)s - %(message)s"
 )
 
