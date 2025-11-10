@@ -13,13 +13,13 @@ logging.basicConfig(
     format="%(asctime)s -  %(levelname)s - %(message)s"
 )
 
-with open('data/locations', 'r', encoding='utf-8') as locations:
+with open('data/locations.json', 'r', encoding='utf-8') as locations:
     locations = json.load(locations)
 
-with open('data/devices', 'r', encoding='utf-8') as devices:
+with open('data/devices.json', 'r', encoding='utf-8') as devices:
     devices = json.load(devices)
     
-with open('data/events', 'r', encoding='utf-8') as events:
+with open('data/events.json', 'r', encoding='utf-8') as events:
     events = json.load(events)
 
 def load_data():
