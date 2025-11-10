@@ -1,6 +1,7 @@
 from typing import List, Dict, Tuple
 import copy
 import logging
+import json
 import os
 
 if not os.path.exists("logs"):
@@ -38,7 +39,7 @@ def events_parser(data: List[Dict]) -> List[Tuple]:
         if 'timestamp' in details_copy:
             del details_copy["timestamp"]
 
-        record = (item["event_id"], item["details"]["device_id"], item["details"]["timestamp"], details_copy)
+        record = (item["event_id"], item["details"]["device_id"], item["details"]["timestamp"], json.dumps(details_copy))
         records.append(record)
     logging.info('Events were successfully parsed.')
     return records
