@@ -1,15 +1,4 @@
 import psycopg2
-import logging
-import os
-
-if not os.path.exists("logs"):
-    os.mkdir("logs")
-
-logging.basicConfig(
-    level=logging.INFO, 
-    filename='logs/conn_db.log', 
-    format="%(asctime)s -  %(levelname)s - %(message)s"
-)
 
 def db_connection():
     try:
@@ -20,8 +9,6 @@ def db_connection():
             host='localhost',
             port=5430
         )
-        logging.info("Connected!")
         return connection
     except:
-        logging.error("Connection ERROR!")
         return None
