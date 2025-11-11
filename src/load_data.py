@@ -1,8 +1,8 @@
 from conn_db import db_connection
-import parser
+from parser import *
 import logging_config
 import logging
-import open_json
+from open_json import open_json
 
 logger = logging.getLogger(__name__)
 
@@ -18,17 +18,17 @@ def load_data():
     cursor = connection.cursor()
     try:
         cursor.executemany(
-        "INSERT INTO locations VALUES (%s, %s, %s);",parser.locations_parser(locations)
+        "INSERT INTO locations VALUES (%s, %s, %s);", LocationsParse().parse(locations)
         )
         logger.info("Locations data was successfully added")
 
         cursor.executemany(
-        "INSERT INTO devices VALUES (%s, %s, %s, %s);",parser.devices_parser(devices)
+        "INSERT INTO devices VALUES (%s, %s, %s, %s);", DevicesParse().parse(devices)
         )
         logger.info("Devices data was successfully added")
 
         cursor.executemany(
-        "INSERT INTO events VALUES (%s, %s, %s, %s);",parser.events_parser(events)
+        "INSERT INTO events VALUES (%s, %s, %s, %s);", EventsParse().parse(events)
         )
         logger.info("Events data was successfully added")
         connection.commit()
