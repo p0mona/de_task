@@ -8,24 +8,26 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Parser:
+    cols = []
+    entity_type = ''
+
     def parse(self, data: List[Dict]) -> List[Tuple]:
-        pass
-    def log(self, name: str):
-        logger.info(f"{name} were successfully parsed.")
+        records = [tuple(item[col] for col in self.cols) for item in data]
+        self.log()
+        return records
+    def log(self):
+        logger.info(f"{self.entity_type} were successfully parsed.")
 
 class LocationsParse(Parser):
-    def parse(self, data: List[Dict]) -> List[Tuple]:
-        records = [(item[LOCATION_ID], item[PARENT_LOCATION_ID], item[LOCATION_NAME]) for item in data]
-        self.log("Locations")
-        return records
+    cols = [LOCATION_ID, PARENT_LOCATION_ID, LOCATION_NAME]
+    entity_type = "Locations"
   
 class DevicesParse(Parser):
-    def parse(self, data: List[Dict]) -> List[Tuple]:
-        records = [(item[DEVICE_ID], item[DEVICE_TYPE], item[DEVICE_NAME], item[LOCATION_ID]) for item in data]
-        self.log("Devices")
-        return records
+    cols = [DEVICE_ID, DEVICE_TYPE, DEVICE_NAME, LOCATION_ID]
+    entity_type = "Devices"
   
 class EventsParse(Parser):
+    entity_type = "Events"
     def parse(self, data: List[Dict]) -> List[Tuple]:
         records = []
         for item in data:
@@ -38,5 +40,5 @@ class EventsParse(Parser):
 
             record = (item[EVENT_ID], item[DETAILS][DEVICE_ID], item[DETAILS][TIMESTAMP], json.dumps(details_copy))
             records.append(record)
-        self.log("Events")
+        self.log()
         return records
