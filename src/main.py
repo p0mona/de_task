@@ -1,5 +1,4 @@
-from db_manager import DBManager
-from parser import LocationsParse, DevicesParse, EventsParse
+from helpers import DBManager, LocationsParse, DevicesParse, EventsParse
 
 db = DBManager()
 db.conn_db()

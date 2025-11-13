@@ -1,8 +1,8 @@
 import json
 import copy
-from constants import *
+from .constants import *
 from typing import List, Dict, Tuple
-import logging_config
+from . import logging_config
 import logging
 
 logger = logging.getLogger(__name__)

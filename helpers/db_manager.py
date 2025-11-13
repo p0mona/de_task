@@ -1,10 +1,9 @@
-import logging_config
+from . import logging_config
 import logging
 import psycopg2
 import os
-from parser import *
 from dotenv import load_dotenv
-from open_json import open_json
+from .open_json import open_json
 
 logger = logging.getLogger(__name__)
 load_dotenv()
