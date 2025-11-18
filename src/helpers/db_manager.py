@@ -37,3 +37,11 @@ class DBManager():
         data = open_json(path)
         parsed_data = parser().parse(data)
         self.insert_data(table_name, parsed_data)
+
+    def execute_query(self, query):
+        self.cursor.execute(query)
+        cols = [desc[0] for desc in self.cursor.description]
+        rows = self.cursor.fetchall()
+        data = [dict(zip(cols, row)) for row in rows]
+
+        return data
