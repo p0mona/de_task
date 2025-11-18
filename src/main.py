@@ -1,12 +1,14 @@
-from helpers import DBManager, LocationsParse, DevicesParse, EventsParse
+from helpers import *
 
 def main():
+    arg = arg_parse()
+
     db = DBManager()
     db.conn_db()
 
-    db.load_data('data/locations.json', LocationsParse, 'locations')
-    db.load_data('data/devices.json', DevicesParse, 'devices')
-    db.load_data('data/events.json', EventsParse, 'events')
+    db.load_data(arg.locations, LocationsParse, 'locations')
+    db.load_data(arg.devices, DevicesParse, 'devices')
+    db.load_data(arg.events, EventsParse, 'events')
 
     db.conn.commit()
     db.conn.close()
