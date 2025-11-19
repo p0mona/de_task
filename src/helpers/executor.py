@@ -45,7 +45,7 @@ class Executor():
             logger.info(f'Query 2 executed, {len(result_2)} results returned')
 
             result_3 = self.db.execute_query(
-                '''SELECT e.events_id
+                '''SELECT e.event_id
                 FROM events e
                 JOIN devices d ON d.device_id = e.device_id 
                 WHERE d.device_type='Smart Lamp' 
@@ -157,7 +157,7 @@ class Executor():
                     SELECT 
                     ROW_NUMBER() OVER (
                         PARTITION BY device_id
-                        ORSER BY 'timestamp'
+                        ORDER BY 'timestamp'
                     ) AS rn,
                     device_id, details ->> 'new_status' AS status
                     FROM events
