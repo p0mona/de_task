@@ -13,5 +13,8 @@ def main():
     db.conn.commit()
     db.conn.close()
 
+    executor = Executor(db)
+    all_results = executor.run()
+
 if __name__ == "__main__":
     main()
