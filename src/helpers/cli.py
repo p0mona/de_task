@@ -1,4 +1,8 @@
 import argparse
+from . import logging_config
+import logging
+
+logger = logging.getLogger(__name__)
 
 def arg_parse():
     parser = argparse.ArgumentParser()
@@ -29,5 +33,7 @@ def arg_parse():
         choices=['json', 'xml'],
         help='The output format for query results (json or xml)'
     )
+
+    logger.info('Arguments are received')
     
     return parser.parse_args()
