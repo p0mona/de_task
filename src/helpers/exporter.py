@@ -26,8 +26,11 @@ class Exporter():
 
     def export_json(self):
         try: 
-            with open(f"{self.output_file}.json", 'w') as f:
-                json.dump(self.results, f)
+            results_str = json.dumps(self.results, default=str)
+            results_dict = json.loads(results_str)
+
+            with open(f"{self.output_file}.json", 'w', encoding='utf-8') as f:
+                json.dump(results_dict, f, ensure_ascii=False)
             logger.info("Export to JSON was completed successfully")
         except Exception as e:
             logger.error(f'ERROR creating JSON file: {e}')
