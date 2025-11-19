@@ -2,6 +2,7 @@ import json
 import xml.etree.ElementTree as et
 from . import logging_config
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -12,6 +13,11 @@ class Exporter():
         
     def export(self, format):
         try:
+            path = f"{self.output_file}.{format}"
+            
+            if os.path.exists(path):
+                logger.warning(f"File {path} already exists. It will be overwritten.")
+
             if format == 'json':
                 self.export_json()
             elif format == 'xml':
