@@ -2,6 +2,7 @@ from helpers import *
 
 def main():
     arg = arg_parse()
+    output_file = "query_results"
 
     db = DBManager()
     db.conn_db()
@@ -11,10 +12,14 @@ def main():
     db.load_data(arg.events, EventsParse, 'events')
 
     db.conn.commit()
-    db.conn.close()
 
     executor = Executor(db)
     all_results = executor.run()
+
+    exporter = Exporter(all_results, output_file)
+    exporter.export(arg.format)
+
+    db.conn.close()
 
 if __name__ == "__main__":
     main()

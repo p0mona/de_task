@@ -173,7 +173,7 @@ class Executor():
             logger.info(f'Query 10 executed, {len(result_10)} results returned')
         
         except Exception as e:
-            logger.error(f'Executing queries error: {e}')
+            logger.error(f'Executing queries ERROR: {e}')
             raise
 
         return all_results
