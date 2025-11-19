@@ -5,6 +5,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 def arg_parse():
+    '''
+    Parse command line arguments
+    
+    Returns: 
+        object with parsed command line arguments with attributes: 
+        locations, devices, events, format
+    '''
     parser = argparse.ArgumentParser()
 
     group = parser.add_argument_group('required')

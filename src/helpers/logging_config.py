@@ -1,6 +1,10 @@
 import logging
 import os
 
+'''
+Application logging configuration.
+'''
+
 if not os.path.exists("logs"):
     os.mkdir("logs")
 

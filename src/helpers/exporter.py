@@ -8,11 +8,28 @@ import os
 logger = logging.getLogger(__name__)
 
 class Exporter():
+    '''
+    This class exports results of SQL queries depending on the selected format (json or xml)
+
+    Attributes:
+        results(dict): query results from Executor.run()
+        output_file(): base filename for output
+    '''
+
     def __init__(self, results, output_file):
         self.results = results
         self.output_file = output_file
         
     def export(self, format):
+        '''
+        This function provides the general logic for export 
+        (checking for the presence of a file with the same name, overwriting if found)
+        and calling the function to export the file in the previously selected format
+
+        Args:
+            format(str): output format (json or xml)
+        '''
+        
         try:
             path = f"{self.output_file}.{format}"
             
@@ -32,6 +49,10 @@ class Exporter():
             raise
 
     def export_json(self):
+        '''
+        This function serializes the data received after executing the SQL query 
+        and writes it to the corresponding JSON file.
+        '''
         try: 
             results_str = json.dumps(self.results, default=str)
             results_dict = json.loads(results_str)
@@ -44,6 +65,11 @@ class Exporter():
             raise
 
     def export_xml(self):
+        '''
+        Builds XML structure from query results, adds proper indentation
+        for readability, and saves to file with XML declaration.
+        '''
+        
         try:
             root = et.Element('results')
 

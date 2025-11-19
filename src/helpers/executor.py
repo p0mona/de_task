@@ -7,10 +7,33 @@ logger = logging.getLogger(__name__)
 db = DBManager()
 
 class Executor():
+    '''
+    This class runs a series of predefined SQL queries against the database
+    and returns structured results
+
+    Attributes:
+        db(class): database manager instance for executing queries
+    '''
+
     def __init__(self, db):
         self.db = db
 
     def run(self):
+        '''
+        Execute all queries and return structured results
+
+        Returns:
+            all_results(dict): structured results with query names as keys and dictionaries
+            containing query metadata and results as values.
+                Format: {
+                    'query n': {
+                        'name': str,
+                        'task': str, 
+                        'results': list of dict
+                    }
+                }
+        '''
+
         all_results = {}
 
         try:

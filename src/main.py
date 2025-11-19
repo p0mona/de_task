@@ -1,6 +1,15 @@
 from helpers import *
 
 def main():
+    '''
+    The main entry point for this application
+
+    1. Parse command line arguments
+    2. Load JSON data to database
+    3. Execute SQL queries
+    4. Export .json or .xml output file
+    '''
+    
     arg = arg_parse()
     output_file = "query_results"
 
