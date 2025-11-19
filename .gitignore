@@ -1,4 +1,19 @@
-.DS_Store
-logs
-__pycache__
+# Virtual Environment
+venv/
+
+# Environment Variables
 .env
+
+# Logs
+logs/
+*.log
+
+# Python Cache
+__pycache__/
+
+# OS Files
+.DS_Store
+
+# Output Files
+query_results.json
+query_results.xml
