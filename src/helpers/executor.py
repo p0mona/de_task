@@ -15,7 +15,7 @@ class Executor():
         db(class): database manager instance for executing queries
     '''
 
-    def __init__(self, db: type[DBManager]):
+    def __init__(self, db: type[DBManager]) -> None:
         self.db = db
 
     def run(self) -> dict:

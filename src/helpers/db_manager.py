@@ -15,11 +15,11 @@ class DBManager():
     uploading data, and executing queries.
     '''
     
-    def __init__(self):
+    def __init__(self) -> None:
         self.conn = None
         self.cursor = None
 
-    def conn_db(self):
+    def conn_db(self) -> None:
         '''
         Connect with database using environment variables
         '''
@@ -33,7 +33,7 @@ class DBManager():
         )
         self.cursor = self.conn.cursor()
 
-    def insert_data(self, table_name: str, data: list):
+    def insert_data(self, table_name: str, data: list) -> None:
         '''
         Insert records into specified database table
 
@@ -51,7 +51,7 @@ class DBManager():
         except:
             logger.error(f"ERROR during loading data to {table_name}.")
     
-    def load_data(self, path: str, parser: type[Parser], table_name: str):
+    def load_data(self, path: str, parser: type[Parser], table_name: str) -> None:
         '''
         Upload data into specified database table
 

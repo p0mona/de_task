@@ -16,11 +16,11 @@ class Exporter():
         output_file(str): base filename for output
     '''
 
-    def __init__(self, results: dict, output_file: str):
+    def __init__(self, results: dict, output_file: str) -> None:
         self.results = results
         self.output_file = output_file
         
-    def export(self, format: str):
+    def export(self, format: str) -> None:
         '''
         This function provides the general logic for export 
         (checking for the presence of a file with the same name, overwriting if found)
@@ -45,7 +45,7 @@ class Exporter():
             logger.error(f'Export ERROR: {e}')
             raise
 
-    def export_json(self):
+    def export_json(self) -> None:
         '''
         This function serializes the data received after executing the SQL query 
         and writes it to the corresponding JSON file.
@@ -61,7 +61,7 @@ class Exporter():
             logger.error(f'ERROR creating JSON file: {e}')
             raise
 
-    def export_xml(self):
+    def export_xml(self) -> None:
         '''
         Builds XML structure from query results, adds proper indentation
         for readability, and saves to file with XML declaration.
