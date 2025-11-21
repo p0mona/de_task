@@ -1,7 +1,7 @@
 import json
 import xml.etree.ElementTree as et
 import xml.dom.minidom
-from . import logging_config
+from . import logging_config, constants
 import logging
 import os
 
@@ -36,12 +36,9 @@ class Exporter():
             if os.path.exists(path):
                 logger.warning(f"File {path} already exists. It will be overwritten.")
 
-            if format == 'json':
-                self.export_json()
-            elif format == 'xml':
-                self.export_xml()
-            else:
-                raise ValueError(f"Unsupported format: {format}")
+            method_name = constants.FORMATS.get(format)
+            export_method = getattr(self, method_name)
+            export_method()
             
             logger.info('Export completed successfully')
         except Exception as e:

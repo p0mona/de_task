@@ -1,5 +1,5 @@
 import argparse
-from . import logging_config
+from . import logging_config, constants
 import logging
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ def arg_parse() -> argparse.Namespace:
         '--format',
         type=str,
         required=True,
-        choices=['json', 'xml'],
+        choices=constants.FORMATS.keys(),
         help='The output format for query results (json or xml)'
     )
 
