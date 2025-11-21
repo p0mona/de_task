@@ -15,10 +15,10 @@ class Executor():
         db(class): database manager instance for executing queries
     '''
 
-    def __init__(self, db):
+    def __init__(self, db: type[DBManager]):
         self.db = db
 
-    def run(self):
+    def run(self) -> dict:
         '''
         Execute all queries and return structured results
 

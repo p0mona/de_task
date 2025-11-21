@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def arg_parse():
+def arg_parse() -> argparse.Namespace:
     '''
     Parse command line arguments
     

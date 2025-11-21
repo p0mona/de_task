@@ -1,3 +1,4 @@
+from helpers.parser import Parser
 from . import logging_config
 import logging
 import psycopg2
@@ -32,7 +33,7 @@ class DBManager():
         )
         self.cursor = self.conn.cursor()
 
-    def insert_data(self, table_name, data):
+    def insert_data(self, table_name: str, data: list):
         '''
         Insert records into specified database table
 
@@ -50,7 +51,7 @@ class DBManager():
         except:
             logger.error(f"ERROR during loading data to {table_name}.")
     
-    def load_data(self, path, parser, table_name):
+    def load_data(self, path: str, parser: type[Parser], table_name: str):
         '''
         Upload data into specified database table
 
@@ -64,7 +65,7 @@ class DBManager():
         parsed_data = parser().parse(data)
         self.insert_data(table_name, parsed_data)
 
-    def execute_query(self, query):
+    def execute_query(self, query: str) -> list:
         '''
         Execute SQL query and return results as list of dictionaries
 

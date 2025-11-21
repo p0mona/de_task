@@ -1,6 +1,6 @@
 import json
 
-def open_json(path):
+def open_json(path: str) -> any:
     '''
     Open JSON file
 

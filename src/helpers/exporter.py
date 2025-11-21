@@ -13,14 +13,14 @@ class Exporter():
 
     Attributes:
         results(dict): query results from Executor.run()
-        output_file(): base filename for output
+        output_file(str): base filename for output
     '''
 
-    def __init__(self, results, output_file):
+    def __init__(self, results: dict, output_file: str):
         self.results = results
         self.output_file = output_file
         
-    def export(self, format):
+    def export(self, format: str):
         '''
         This function provides the general logic for export 
         (checking for the presence of a file with the same name, overwriting if found)
