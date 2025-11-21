@@ -9,3 +9,8 @@ DEVICE_NAME = 'device_name'
 EVENT_ID = 'event_id'
 TIMESTAMP = 'timestamp'
 DETAILS = 'details'
+
+FORMATS = {
+    'json': 'export_json',
+    'xml': 'export_xml'
+}
