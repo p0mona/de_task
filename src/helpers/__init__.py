@@ -10,7 +10,7 @@ from .exporter import Exporter
 __all__ = [
     "DBManager",
     "LocationsParse",
-    "Parser"
+    "Parser",
     "DevicesParse",
     "EventsParse",
     "open_json",
