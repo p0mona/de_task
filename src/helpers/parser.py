@@ -1,8 +1,9 @@
 import json
 import copy
-from .constants import *
+from .constants import LOCATION_ID, PARENT_LOCATION_ID, LOCATION_NAME, \
+                       DEVICE_ID, DEVICE_TYPE, DEVICE_NAME, TIMESTAMP, \
+                       EVENT_ID, DETAILS
 from typing import List, Dict, Tuple
-from . import logging_config
 import logging
 
 logger = logging.getLogger(__name__)

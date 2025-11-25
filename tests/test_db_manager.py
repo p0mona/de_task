@@ -9,7 +9,9 @@ def mock_db(mocker):
     mock_cursor = mocker.Mock()
 
     mock_connection.cursor.return_value = mock_cursor
-    mock_connect = mocker.patch("psycopg2.connect", return_value=mock_connection)
+    mock_connect = mocker.patch(
+        "psycopg2.connect",
+        return_value=mock_connection)
 
     db = DBManager()
     db.conn_db()
@@ -60,7 +62,12 @@ class TestDBManager:
     @pytest.mark.parametrize(
         "path, table_name, json_data, parsed_data",
         [
-            ("test1.json", "test_tab1", [{"id": 1, "name": "Qwe"}], [(1, "Qwe")]),
+            (
+                "test1.json",
+                "test_tab1",
+                [{"id": 1, "name": "Qwe"}],
+                [(1, "Qwe")]
+            ),
             (
                 "test2.json",
                 "test_tab2",
@@ -69,7 +76,15 @@ class TestDBManager:
             ),
         ],
     )
-    def test_load_data(self, mocker, mock_db, path, table_name, json_data, parsed_data):
+    def test_load_data(
+            self,
+            mocker,
+            mock_db,
+            path,
+            table_name,
+            json_data,
+            parsed_data
+    ):
         *_, db = mock_db
 
         mock_open_json = mocker.patch(
@@ -97,7 +112,12 @@ class TestDBManager:
                 [(1,), (2,), (3,)],
                 [{"id": 1}, {"id": 2}, {"id": 3}],
             ),
-            ("SELECT COUNT(*) FROM users", [("count",)], [(3,)], [{"count": 3}]),
+            (
+                "SELECT COUNT(*) FROM users",
+                [("count",)],
+                [(3,)],
+                [{"count": 3}]
+            ),
         ],
     )
     def test_execute_query(self, mock_db, test_query, cols, rows, expectation):

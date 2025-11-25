@@ -1,7 +1,7 @@
 import json
 import xml.etree.ElementTree as et
 import xml.dom.minidom
-from . import logging_config, constants
+from . import constants
 import logging
 import os
 
@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 
 class Exporter:
     """
-    This class exports results of SQL queries depending on the selected format (json or xml)
+    This class exports results of SQL queries depending on theselected format
+    (json or xml)
 
     Attributes:
         results(dict): query results from Executor.run()
@@ -24,8 +25,9 @@ class Exporter:
     def export(self, format: str) -> None:
         """
         This function provides the general logic for export
-        (checking for the presence of a file with the same name, overwriting if found)
-        and calling the function to export the file in the previously selected format
+        (checking for the presence of a file with the same name,
+        overwriting if found) and calling the function to
+        export the file in the previously selected format
 
         Args:
             format(str): output format (json or xml)
@@ -35,7 +37,9 @@ class Exporter:
             path = f"{self.output_file}.{format}"
 
             if os.path.exists(path):
-                logger.warning(f"File {path} already exists. It will be overwritten.")
+                logger.warning(
+                    f"File {path} already exists. It will be overwritten."
+                )
 
             method_name = constants.FORMATS.get(format)
             export_method = getattr(self, method_name)
@@ -48,8 +52,8 @@ class Exporter:
 
     def export_json(self) -> None:
         """
-        This function serializes the data received after executing the SQL query
-        and writes it to the corresponding JSON file.
+        This function serializes the data received after executing
+        the SQL query and writes it to the corresponding JSON file.
         """
         try:
             results_str = json.dumps(self.results, default=str)

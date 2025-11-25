@@ -1,6 +1,6 @@
 from testcontainers.postgres import PostgresContainer
 import pytest
-from helpers import *
+from helpers import DBManager, LocationsParse
 import psycopg2
 import os
 
@@ -60,7 +60,11 @@ def test_intagration(db_connection):
             "parent_location_id": 1,
             "location_name": "Office Building 1",
         },
-        {"location_id": 2, "parent_location_id": 1, "location_name": "Floor 1"},
+        {
+            "location_id": 2,
+            "parent_location_id": 1,
+            "location_name": "Floor 1",
+        },
     ]
     parsed_data = LocationsParse().parse(test_data)
     db.insert_data("locations", parsed_data)

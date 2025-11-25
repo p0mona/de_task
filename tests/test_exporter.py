@@ -10,9 +10,21 @@ def test_data():
     data = {
         "q1": {
             "task": "SELECT * FROM users WHERE id < 50",
-            "results": [{"id": 12, "name": "Kate"}, {"id": 46, "name": "Maciej"}],
+            "results": [
+                {
+                    "id": 12,
+                    "name": "Kate",
+                },
+                {
+                    "id": 46,
+                    "name": "Maciej",
+                }
+            ],
         },
-        "q2": {"task": "SELECT COUNT(*) FROM users", "results": [{"count": 78}]},
+        "q2": {
+            "task": "SELECT COUNT(*) FROM users",
+            "results": [{"count": 78}]
+        },
     }
     return data
 

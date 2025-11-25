@@ -1,5 +1,4 @@
 from helpers.parser import Parser
-from . import logging_config
 import logging
 import psycopg2
 import os
@@ -12,8 +11,8 @@ load_dotenv()
 
 class DBManager:
     """
-    A class for working with a database: connecting to a database, inserting data,
-    uploading data, and executing queries.
+    A class for working with a database: connecting to a database,
+    inserting data, uploading data, and executing queries.
     """
 
     def __init__(self, conn=None) -> None:
@@ -52,10 +51,13 @@ class DBManager:
         try:
             self.cursor.executemany(sql, data)
             logger.info(f"{table_name} data was successfully added")
-        except:
-            logger.error(f"ERROR during loading data to {table_name}.")
+        except Exception as e:
+            logger.error(f"ERROR {e} during loading data to {table_name}.")
 
-    def load_data(self, path: str, parser: type[Parser], table_name: str) -> None:
+    def load_data(self,
+                  path: str,
+                  parser: type[Parser],
+                  table_name: str) -> None:
         """
         Upload data into specified database table
 
@@ -77,7 +79,8 @@ class DBManager:
             query(str): SQL query string to execute
 
         Returns:
-            data(list): list of dictionaries where keys are column names and values are row data
+            data(list): list of dictionaries where keys are column
+            names and values are row data
         """
 
         self.cursor.execute(query)

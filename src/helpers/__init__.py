@@ -8,6 +8,7 @@ from .executor import Executor
 from .exporter import Exporter
 
 __all__ = [
+    "constants",
     "DBManager",
     "LocationsParse",
     "Parser",
