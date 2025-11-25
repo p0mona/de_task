@@ -59,16 +59,16 @@ def clean_db(db_connection):
         cursor.execute("DELETE FROM locations;")
         db_connection.commit()
 
-def integration_test():
-    db = DBManager()
+def test_intagration(db_connection):
+    db = DBManager(conn = db_connection)
 
     db.load_data('data/locations.json', LocationsParse, 'locations')
     db.load_data('data/devices.json', DevicesParse, 'devices')
     db.load_data('data/events.json', EventsParse, 'events')
 
-    query_locations = "SELECT COUNT(*) FROM locations" #6220
-    query_devices = "SELECT COUNT(*) FROM devices" #48815
-    query_events = "SELECT COUNT(*) FROM events" #27468
+    query_locations = "SELECT COUNT(*) as count FROM locations" #6220
+    query_devices = "SELECT COUNT(*) as count FROM devices" #48815
+    query_events = "SELECT COUNT(*) as count FROM events" #27468
 
     result_locations = db.execute_query(query_locations)
     result_devices = db.execute_query(query_devices)

@@ -15,9 +15,12 @@ class DBManager():
     uploading data, and executing queries.
     '''
     
-    def __init__(self) -> None:
-        self.conn = None
+    def __init__(self, conn=None) -> None:
+        self.conn = conn
         self.cursor = None
+        
+        if self.conn:
+            self.cursor = self.conn.cursor()
 
     def conn_db(self) -> None:
         '''
