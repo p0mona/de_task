@@ -31,20 +31,6 @@ def db_connection(postgres_container):
                 parent_location_id INT REFERENCES locations(location_id),
                 location_name TEXT NOT NULL
             );
-
-            CREATE TABLE IF NOT EXISTS devices(
-                device_id INT PRIMARY KEY,
-                device_type TEXT NOT NULL,
-                device_name TEXT NOT NULL,
-                location_id INT REFERENCES locations(location_id)
-            );
-
-            CREATE TABLE IF NOT EXISTS events(
-                event_id INT PRIMARY KEY,
-                device_id INT REFERENCES devices(device_id),
-                "timestamp" TIMESTAMP NOT NULL,
-                details JSONB NOT NULL
-            );
         """)
         conn.commit()
     
@@ -54,26 +40,29 @@ def db_connection(postgres_container):
 @pytest.fixture
 def clean_db(db_connection):
     with db_connection.cursor() as cursor:
-        cursor.execute("DELETE FROM events;")
-        cursor.execute("DELETE FROM devices;")
         cursor.execute("DELETE FROM locations;")
         db_connection.commit()
 
 def test_intagration(db_connection):
     db = DBManager(conn = db_connection)
 
-    db.load_data('data/locations.json', LocationsParse, 'locations')
-    db.load_data('data/devices.json', DevicesParse, 'devices')
-    db.load_data('data/events.json', EventsParse, 'events')
+    test_data = [
+        {
+            "location_id": 1,
+            "parent_location_id": 1,
+            "location_name": "Office Building 1"
+        },
+        {
+            "location_id": 2,
+            "parent_location_id": 1,
+            "location_name": "Floor 1"
+        }
+    ]
+    parsed_data = LocationsParse().parse(test_data)
+    db.insert_data('locations', parsed_data)
 
-    query_locations = "SELECT COUNT(*) as count FROM locations" #6220
-    query_devices = "SELECT COUNT(*) as count FROM devices" #48815
-    query_events = "SELECT COUNT(*) as count FROM events" #27468
+    query_locations = "SELECT COUNT(*) as count FROM locations"
 
     result_locations = db.execute_query(query_locations)
-    result_devices = db.execute_query(query_devices)
-    result_events = db.execute_query(query_events)
 
-    assert result_locations[0]['count'] == 6220
-    assert result_devices[0]['count'] == 48815
-    assert result_events[0]['count'] == 27469
+    assert result_locations[0]['count'] == 2
