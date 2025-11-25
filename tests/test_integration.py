@@ -2,14 +2,24 @@ from testcontainers.postgres import PostgresContainer
 import pytest
 from helpers import DBManager, LocationsParse
 import psycopg2
-import os
+import docker
+import time
 
 
 @pytest.fixture(scope="module")
 def postgres_container():
-    os.environ["DOCKER_HOST"] = (
-        f"unix://{os.path.expanduser('~/.docker/run/docker.sock')}"
-    )
+
+    client = docker.from_env()
+    for i in range(10):
+        try:
+            client.ping()
+            print(f"Docker Daemon готов после {i+1} попыток.")
+            break
+        except Exception as e:
+            print(f"Ожидание Docker Daemon... Попытка {i+1}. Ошибка: {e}")
+            time.sleep(2)
+    else:
+        raise ConnectionError("Не удалось подключиться к Docker Daemon.")
 
     postgres = PostgresContainer("postgres:16")
     postgres.start()
@@ -20,6 +30,8 @@ def postgres_container():
 
 @pytest.fixture(scope="module")
 def db_connection(postgres_container):
+    time.sleep(1)
+
     conn = psycopg2.connect(
         host=postgres_container.get_container_host_ip(),
         port=postgres_container.get_exposed_port(5432),
@@ -51,13 +63,13 @@ def clean_db(db_connection):
         db_connection.commit()
 
 
-def test_intagration(db_connection):
+def test_integration(db_connection):
     db = DBManager(conn=db_connection)
 
     test_data = [
         {
             "location_id": 1,
-            "parent_location_id": 1,
+            "parent_location_id": None,
             "location_name": "Office Building 1",
         },
         {
