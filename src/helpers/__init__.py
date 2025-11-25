@@ -17,5 +17,5 @@ __all__ = [
     "logging_config",
     "arg_parse",
     "Executor",
-    "Exporter"
+    "Exporter",
 ]
