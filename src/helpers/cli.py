@@ -1,46 +1,47 @@
 import argparse
-from . import logging_config, constants
+from . import constants
 import logging
 
 logger = logging.getLogger(__name__)
 
+
 def arg_parse() -> argparse.Namespace:
-    '''
+    """
     Parse command line arguments
-    
-    Returns: 
-        object with parsed command line arguments with attributes: 
+
+    Returns:
+        object with parsed command line arguments with attributes:
         locations, devices, events, format
-    '''
+    """
     parser = argparse.ArgumentParser()
 
-    group = parser.add_argument_group('required')
+    group = parser.add_argument_group("required")
     group.add_argument(
-        '--locations',
+        "--locations",
         type=str,
         required=True,
-        help='Path to locations JSON file'
+        help="Path to locations JSON file"
     )
     group.add_argument(
-        '--devices',
+        "--devices",
         type=str,
         required=True,
-        help='Path to devices JSON file'
+        help="Path to devices JSON file"
     )
     group.add_argument(
-        '--events',
+        "--events",
         type=str,
         required=True,
-        help='Path to events JSON file'
+        help="Path to events JSON file"
     )
     group.add_argument(
-        '--format',
+        "--format",
         type=str,
         required=True,
         choices=constants.FORMATS.keys(),
-        help='The output format for query results (json or xml)'
+        help="The output format for query results (json or xml)",
     )
 
-    logger.info('Arguments are received')
-    
+    logger.info("Arguments are received")
+
     return parser.parse_args()
