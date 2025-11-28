@@ -43,9 +43,15 @@ jobs:
 
       - name: Setup Docker
         uses: docker/setup-buildx-action@v2
-      
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Generate new lock file
+        run: poetry lock
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: poetry install
       
       - name: Run tests
-        run: pytest -v
+        run: poetry run pytest -v

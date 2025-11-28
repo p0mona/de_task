@@ -20,9 +20,15 @@ The project is a fully functional ETL system for processing Internet of Things (
 
 **Infrastructure & Utilities**
 - python-dotenv 1.2.1
+- poetry
 - argparse
 - logging
 - os
+
+**Tests**
+- testcontainers 4.13.3
+- pytest 9.0.1
+- pytest-mock 3.15.1
 
 
 
@@ -39,22 +45,14 @@ cd de_task
 docker-compose up -d
 ```
 
-**3. Set up Python environment**
-python3 -m venv venv
+**3. Install dependencies**
 ```bash
-source venv/bin/activate  # Linux/Mac
-
-venv\Scripts\activate  # Windows
+poetry install
 ```
 
-**4. Install dependencies**
+**4. Run the application**
 ```bash
-pip install -r requirements.txt
-```
-
-**5. Run the application**
-```bash
-python3 src/main.py \
+poetry run src/main.py \
     --locations data/locations.json \
     --devices data/devices.json \
     --events data/events.json \
