@@ -1,9 +1,11 @@
-from testcontainers.postgres import PostgresContainer
-import pytest
-from helpers import DBManager, LocationsParse
-import psycopg2
-import docker
 import time
+
+import docker
+import psycopg2
+import pytest
+from testcontainers.postgres import PostgresContainer
+
+from helpers import DBManager, LocationsParse
 
 
 @pytest.fixture(scope="module")
@@ -13,13 +15,12 @@ def postgres_container():
     for i in range(10):
         try:
             client.ping()
-            print(f"Docker Daemon готов после {i+1} попыток.")
             break
         except Exception as e:
-            print(f"Ожидание Docker Daemon... Попытка {i+1}. Ошибка: {e}")
+            print(f"Error {e}")
             time.sleep(2)
     else:
-        raise ConnectionError("Не удалось подключиться к Docker Daemon.")
+        raise ConnectionError("Error connection to Docker Daemon.")
 
     postgres = PostgresContainer("postgres:16")
     postgres.start()
